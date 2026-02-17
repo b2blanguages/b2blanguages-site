@@ -61,9 +61,19 @@ nav .container{display:flex;align-items:center;justify-content:space-between;hei
 
 /* HERO */
 .hero{min-height:100vh;display:flex;align-items:center;padding-top:72px;position:relative;overflow:hidden;background:var(--bg-light)}
-.hero::before{content:'';position:absolute;top:50%;right:5%;width:450px;height:450px;transform:translateY(-50%);background:url('logo-hero.png') center/contain no-repeat;pointer-events:none}
-.hero::after{content:'';position:absolute;top:50%;right:5%;width:500px;height:500px;transform:translateY(-50%);background:radial-gradient(circle,rgba(140,49,36,0.03) 0%,transparent 60%);pointer-events:none}
-@media(max-width:900px){.hero::before{right:-10%;width:300px;height:300px;opacity:0.6}}
+.hero::before{display:none}
+.hero::after{display:none}
+.hero-logo-float{position:absolute;right:5%;top:50%;width:400px;height:400px;transform:translateY(-50%);background:url('logo-hero.png') center/contain no-repeat;pointer-events:none;animation:heroFloat 20s ease-in-out infinite}
+@keyframes heroFloat{
+0%{transform:translateY(-50%) translateX(0) rotate(0deg) scale(1)}
+15%{transform:translateY(-55%) translateX(-20px) rotate(3deg) scale(1.03)}
+30%{transform:translateY(-45%) translateX(15px) rotate(-2deg) scale(0.97)}
+50%{transform:translateY(-52%) translateX(-10px) rotate(4deg) scale(1.05)}
+65%{transform:translateY(-48%) translateX(25px) rotate(-3deg) scale(0.98)}
+80%{transform:translateY(-53%) translateX(-15px) rotate(2deg) scale(1.02)}
+100%{transform:translateY(-50%) translateX(0) rotate(0deg) scale(1)}
+}
+@media(max-width:900px){.hero-logo-float{width:250px;height:250px;right:-5%;opacity:0.5}}
 .hero .container{position:relative;z-index:1}
 .hero-content{max-width:700px}
 .hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(140,49,36,0.1);border:1px solid rgba(140,49,36,0.3);padding:8px 18px;border-radius:50px;font-size:0.85rem;color:var(--red);margin-bottom:28px}
@@ -289,7 +299,7 @@ body.lang-es [data-lang-es]{display:revert}
 </div>
 </div>
 </div>
-<!-- hero visual: logo watermark via CSS ::before -->
+<div class="hero-logo-float"></div>
 </section>
 
 <!-- SERVICES -->
