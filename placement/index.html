@@ -260,29 +260,24 @@ Próxima
 <!-- STEP 4: Results -->
 <div id="step4" class="test-step hidden">
 <div class="results-container">
-<div class="score-display">
-<div class="score-number" id="finalScore">0</div>
-<div class="score-text">pontos de 76 possíveis</div>
-<div class="level-badge" id="levelBadge">A1 - Beginner</div>
+<div class="score-display" style="text-align:center;padding:48px 32px">
+<div style="font-size:64px;margin-bottom:16px"><i class="fas fa-check-circle"></i></div>
+<h2 style="color:#fff;font-size:1.8rem;margin-bottom:12px">Teste Concluído!</h2>
+<p style="color:rgba(255,255,255,0.85);font-size:1.05rem">Obrigado por completar o teste de nível.</p>
 </div>
 
 <div class="results-info">
-<h3><i class="fas fa-info-circle"></i> Sobre seu resultado</h3>
-<p><strong>Múltipla escolha:</strong> <span id="mcScore">0</span>/76 pontos</p>
-<p><strong>Redação:</strong> Suas respostas de redação serão avaliadas por nossa equipe. Entraremos em contato com seu resultado completo em breve.</p>
-<ul>
-<li>A1-A2: Beginner/Elementary - Conceitos básicos</li>
-<li>B1-B2: Intermediate/Upper-Int - Comunicação efetiva</li>
-<li>C1-C2: Advanced/Proficient - Fluência avançada</li>
-</ul>
+<h3><i class="fas fa-envelope"></i> Próximos Passos</h3>
+<p>Suas respostas foram enviadas para nossa equipe pedagógica. Analisaremos cuidadosamente cada questão e entraremos em contato com seu resultado completo e uma recomendação de curso personalizada.</p>
+<p style="margin-top:12px"><strong>Prazo de retorno:</strong> até 2 dias úteis.</p>
 </div>
 
 <div class="cta-section">
-<h3>Pronto para o próximo nível?</h3>
-<p>Agende uma aula experimental gratuita e comece sua jornada para fluência!</p>
-<a href="https://wa.me/5511999999999?text=Ol%C3%A1%21%20Acabei%20de%20fazer%20o%20teste%20de%20n%C3%ADvel%20e%20gostaria%20de%20agendar%20uma%20aula%20experimental." class="whatsapp-btn" target="_blank">
+<h3>Quer agilizar?</h3>
+<p>Fale diretamente com nossa equipe pelo WhatsApp!</p>
+<a href="https://wa.me/5511558920997?text=Ol%C3%A1!%20Acabei%20de%20fazer%20o%20teste%20de%20n%C3%ADvel%20no%20site%20e%20gostaria%20de%20saber%20mais." class="whatsapp-btn" target="_blank">
 <i class="fab fa-whatsapp"></i>
-Agendar Aula Experimental
+Falar pelo WhatsApp
 </a>
 </div>
 
@@ -832,11 +827,7 @@ else if(mcScore >= 46) { level = 'B2 (Upper Intermediate)'; levelClass = 'level-
 else if(mcScore >= 31) { level = 'B1 (Intermediate)'; levelClass = 'level-b1'; }
 else if(mcScore >= 16) { level = 'A2 (Elementary)'; levelClass = 'level-a2'; }
 
-// Update display
-document.getElementById('finalScore').textContent = Math.round(mcScore * 10) / 10;
-document.getElementById('mcScore').textContent = Math.round(mcScore * 10) / 10;
-document.getElementById('levelBadge').textContent = level;
-document.getElementById('levelBadge').className = `level-badge ${levelClass}`;
+// Score/level not shown to student — only sent via webhook
 
 updateProgress();
 submitResults(mcScore, level);
@@ -909,6 +900,15 @@ if(testTimer) {
 clearInterval(testTimer);
 }
 });
+
+// DEV MODE: ?dev=1 auto-fills and submits with random answers
+if(new URLSearchParams(window.location.search).get('dev') === '1') {
+personalData = {name:'Teste Dev', company:'LFSA', email:'dev@test.com', phone:'(11) 99999-9999'};
+mcAnswers = mcQuestions.map(() => Math.floor(Math.random()*4));
+writingAnswers = writingTasks.map((t,i) => 'Dev test response for task '+(i+1));
+currentStep = 4;
+showResults();
+}
 </script>
 
 </body>
