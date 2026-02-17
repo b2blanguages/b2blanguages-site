@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>B2B Languages — Inglês e Espanhol para Negócios | São Paulo</title>
-<meta name="description" content="Escola de inglês e espanhol corporativo em São Paulo. Aulas presenciais, online e in-company para profissionais e empresas. Let's talk business!">
+<meta name="description" content="Escola de inglês e espanhol corporativo em São Paulo. Aulas online para profissionais e empresas. Let's talk business!">
 <meta property="og:title" content="B2B Languages — Let's talk business!">
 <meta property="og:description" content="Inglês e Espanhol corporativo para profissionais e empresas em São Paulo. +[X] anos de experiência.">
 <meta property="og:type" content="website">
@@ -37,16 +37,16 @@ img{max-width:100%}
 /* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(255,255,255,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,0,0,0.08);transition:var(--transition)}
 nav .container{display:flex;align-items:center;justify-content:space-between;height:72px}
-.logo{font-family:var(--font-head);font-size:1.5rem;font-weight:700;color:var(--gray-dark)}
-.logo span{color:var(--red)}
+.logo{display:flex;align-items:center}
+.logo-img{height:40px;border-radius:6px}
 .nav-links{display:flex;align-items:center;gap:32px;list-style:none}
 .nav-links a{font-size:0.9rem;font-weight:400;color:var(--gray);transition:var(--transition);position:relative}
 .nav-links a:hover{color:var(--red)}
 .lang-switch{display:flex;gap:4px}
 .lang-btn{background:none;border:1px solid rgba(0,0,0,0.15);color:var(--gray);padding:4px 10px;border-radius:6px;cursor:pointer;font-size:0.8rem;transition:var(--transition)}
 .lang-btn.active,.lang-btn:hover{border-color:var(--red);color:var(--red);background:rgba(140,49,36,0.1)}
-.nav-cta{background:var(--red);color:#fff;padding:10px 22px;border-radius:8px;font-size:0.85rem;font-weight:600;border:none;cursor:pointer;transition:var(--transition);white-space:nowrap}
-.nav-cta:hover{background:var(--red-light);transform:translateY(-1px)}
+.nav-cta{background:var(--red);color:#fff;padding:10px 22px;border-radius:8px;font-size:0.85rem;font-weight:600;border:none;cursor:pointer;transition:var(--transition);white-space:nowrap;text-decoration:none;display:inline-block}
+.nav-cta:hover{background:var(--red-light);transform:translateY(-1px);box-shadow:0 4px 15px rgba(140,49,36,0.3)}
 .hamburger{display:none;background:none;border:none;color:var(--gray);font-size:1.5rem;cursor:pointer}
 
 /* MOBILE NAV */
@@ -248,7 +248,7 @@ body.lang-es [data-lang-es]{display:revert}
 <!-- NAV -->
 <nav>
 <div class="container">
-<a href="#" class="logo"><img src="logo.jpg" alt="B2B Languages" style="height:48px;border-radius:8px"></a>
+<a href="#" class="logo"><img src="logo.jpg" alt="B2B Languages" class="logo-img"></a>
 <ul class="nav-links" id="navLinks">
 <li><a href="#solucoes" data-lang-pt>Soluções</a><a href="#solucoes" data-lang-en>Solutions</a><a href="#solucoes" data-lang-es>Soluciones</a></li>
 <li><a href="#metodo" data-lang-pt>Método</a><a href="#metodo" data-lang-en>Method</a><a href="#metodo" data-lang-es>Método</a></li>
@@ -299,9 +299,9 @@ body.lang-es [data-lang-es]{display:revert}
 <p class="section-label" data-lang-pt>Soluções</p>
 <p class="section-label" data-lang-en>Solutions</p>
 <p class="section-label" data-lang-es>Soluciones</p>
-<h2 class="section-title" data-lang-pt>Aulas in-company, workshops e cursos no exterior feitos para você</h2>
-<h2 class="section-title" data-lang-en>In-company classes, workshops, and courses abroad made for you</h2>
-<h2 class="section-title" data-lang-es>Clases in-company, workshops y cursos en el exterior hechos para usted</h2>
+<h2 class="section-title" data-lang-pt>Workshops, preparatórios e cursos no exterior feitos para você</h2>
+<h2 class="section-title" data-lang-en>Workshops, test prep, and courses abroad made for you</h2>
+<h2 class="section-title" data-lang-es>Workshops, preparatorios y cursos en el exterior hechos para usted</h2>
 </div>
 <div class="services-grid">
 <!-- Aulas Individuais -->
@@ -316,9 +316,9 @@ body.lang-es [data-lang-es]{display:revert}
 <div class="service-card reveal reveal-delay-2">
 <div class="service-icon group"><i class="fas fa-users"></i></div>
 <h3 data-lang-pt>Aulas em Grupo</h3><h3 data-lang-en>Group Classes</h3><h3 data-lang-es>Clases Grupales</h3>
-<p data-lang-pt>Aulas em grupos de até 4 alunos na sua empresa, escritório ou residência. Horários flexíveis de segunda a sexta, das 7h às 21h, e aos sábados, das 9h às 13h.</p>
-<p data-lang-en>Classes in groups of up to 4 students at your company, office, or home. Flexible schedules Monday to Friday, 7AM to 9PM, and Saturdays, 9AM to 1PM.</p>
-<p data-lang-es>Clases en grupos de hasta 4 alumnos en su empresa, oficina o residencia. Horarios flexibles de lunes a viernes, de 7h a 21h, y sábados, de 9h a 13h.</p>
+<p data-lang-pt>Aulas online em grupos de até 4 alunos. Horários flexíveis de segunda a sexta, das 7h às 21h, e aos sábados, das 9h às 13h.</p>
+<p data-lang-en>Online classes in groups of up to 4 students. Flexible schedules Monday to Friday, 7AM to 9PM, and Saturdays, 9AM to 1PM.</p>
+<p data-lang-es>Clases online en grupos de hasta 4 alumnos. Horarios flexibles de lunes a viernes, de 7h a 21h, y sábados, de 9h a 13h.</p>
 </div>
 <!-- Entrevistas -->
 <div class="service-card reveal reveal-delay-3">
@@ -643,7 +643,7 @@ body.lang-es [data-lang-es]{display:revert}
 <div class="container">
 <div class="footer-grid">
 <div class="footer-brand">
-<div class="logo"><img src="logo.jpg" alt="B2B Languages" style="height:48px;border-radius:8px"></div>
+<div class="logo"><img src="logo.jpg" alt="B2B Languages" class="logo-img"></div>
 <p data-lang-pt>[Descrição da empresa no rodapé]</p>
 <p data-lang-en>[Footer company description]</p>
 <p data-lang-es">Escuela de inglés y español corporativo en São Paulo. Transformando la comunicación de profesionales y empresas hace más de [X] años.</p>
