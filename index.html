@@ -119,6 +119,12 @@ section{padding:100px 0}
 .stat-label{font-size:0.9rem;opacity:0.85}
 @media(max-width:700px){.stats .container{grid-template-columns:repeat(2,1fr);gap:24px}}
 
+/* CLIENTS */
+#empresas{background:linear-gradient(180deg,rgba(26,26,46,0.3) 0%,var(--bg) 100%)}
+.clients-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;margin-top:50px}
+.client-card{background:rgba(45,45,63,0.35);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:24px 20px;text-align:center;font-weight:600;font-size:0.95rem;transition:var(--transition);color:var(--gray)}
+.client-card:hover{border-color:rgba(192,57,43,0.25);background:rgba(45,45,63,0.55);color:var(--white);transform:translateY(-2px)}
+
 /* TESTIMONIALS */
 #depoimentos{background:var(--bg)}
 .testimonials-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;margin-top:50px}
@@ -220,6 +226,7 @@ body.lang-es [data-lang-es]{display:revert}
 <ul class="nav-links" id="navLinks">
 <li><a href="#solucoes" data-lang-pt>Soluções</a><a href="#solucoes" data-lang-en>Solutions</a><a href="#solucoes" data-lang-es>Soluciones</a></li>
 <li><a href="#metodo" data-lang-pt>Método</a><a href="#metodo" data-lang-en>Method</a><a href="#metodo" data-lang-es>Método</a></li>
+<li><a href="#empresas" data-lang-pt>Empresas</a><a href="#empresas" data-lang-en>Companies</a><a href="#empresas" data-lang-es>Empresas</a></li>
 <li><a href="#depoimentos" data-lang-pt>Depoimentos</a><a href="#depoimentos" data-lang-en>Testimonials</a><a href="#depoimentos" data-lang-es>Testimonios</a></li>
 <li><a href="#contato" data-lang-pt>Contato</a><a href="#contato" data-lang-en>Contact</a><a href="#contato" data-lang-es>Contacto</a></li>
 <li>
@@ -417,6 +424,33 @@ body.lang-es [data-lang-es]{display:revert}
 </div>
 </section>
 
+<!-- CLIENTS -->
+<section id="empresas">
+<div class="container">
+<div class="reveal" style="text-align:center">
+<p class="section-label" data-lang-pt>Clientes</p>
+<p class="section-label" data-lang-en>Clients</p>
+<p class="section-label" data-lang-es>Clientes</p>
+<h2 class="section-title" style="margin:0 auto" data-lang-pt>Empresas onde temos alunos</h2>
+<h2 class="section-title" style="margin:0 auto" data-lang-en>Companies where we have students</h2>
+<h2 class="section-title" style="margin:0 auto" data-lang-es>Empresas donde tenemos alumnos</h2>
+</div>
+<div class="clients-grid">
+<div class="client-card reveal reveal-delay-1">Coca-Cola</div>
+<div class="client-card reveal reveal-delay-1">Lab2dev</div>
+<div class="client-card reveal reveal-delay-2">Banco MUFG Brasil</div>
+<div class="client-card reveal reveal-delay-2">Stone</div>
+<div class="client-card reveal reveal-delay-3">FEMSA</div>
+<div class="client-card reveal reveal-delay-3">Grupo Boticário</div>
+<div class="client-card reveal reveal-delay-4">Wellhub</div>
+<div class="client-card reveal reveal-delay-4">BP - A Beneficência Portuguesa</div>
+<div class="client-card reveal reveal-delay-5">Nelson Willians Advogados</div>
+<div class="client-card reveal reveal-delay-5">Petrobrás</div>
+<div class="client-card reveal reveal-delay-5">Vieites Mizrahi Rei Advogados</div>
+</div>
+</div>
+</section>
+
 <!-- TESTIMONIALS -->
 <section id="depoimentos">
 <div class="container">
@@ -528,9 +562,7 @@ body.lang-es [data-lang-es]{display:revert}
 <h3 data-lang-pt>Mensagem enviada!</h3><h3 data-lang-en>Message sent!</h3><h3 data-lang-es>¡Mensaje enviado!</h3>
 <p data-lang-pt>Entraremos em contato em breve. Obrigado!</p><p data-lang-en>We'll get back to you soon. Thank you!</p><p data-lang-es>Nos pondremos en contacto pronto. ¡Gracias!</p>
 </div>
-<div class="reveal" style="text-align:center;margin-top:32px">
-<a href="https://wa.me/5511981088908" target="_blank" class="wa-section-btn"><i class="fab fa-whatsapp"></i> <span data-lang-pt>Falar pelo WhatsApp</span><span data-lang-en>Chat on WhatsApp</span><span data-lang-es>Hablar por WhatsApp</span></a>
-</div>
+<!-- WhatsApp removed per client request -->
 </div>
 </section>
 
@@ -665,7 +697,6 @@ body.lang-es [data-lang-es]{display:revert}
 <a href="https://facebook.com/b2blanguages" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
 <a href="https://twitter.com/b2blanguages" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
 <a href="https://linkedin.com/company/3276368" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-<a href="https://wa.me/5511981088908" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
 </div>
 </div>
 <div class="footer-col">
@@ -673,17 +704,15 @@ body.lang-es [data-lang-es]{display:revert}
 <ul>
 <li><a href="#solucoes" data-lang-pt>Soluções</a><a href="#solucoes" data-lang-en>Solutions</a><a href="#solucoes" data-lang-es>Soluciones</a></li>
 <li><a href="#metodo" data-lang-pt>Método</a><a href="#metodo" data-lang-en>Method</a><a href="#metodo" data-lang-es>Método</a></li>
+<li><a href="#empresas" data-lang-pt>Empresas</a><a href="#empresas" data-lang-en>Companies</a><a href="#empresas" data-lang-es>Empresas</a></li>
 <li><a href="#depoimentos" data-lang-pt>Depoimentos</a><a href="#depoimentos" data-lang-en>Testimonials</a><a href="#depoimentos" data-lang-es>Testimonios</a></li>
 <li><a href="#contato" data-lang-pt>Contato</a><a href="#contato" data-lang-en>Contact</a><a href="#contato" data-lang-es>Contacto</a></li>
-<li><a href="#trial" data-lang-pt>Aula Experimental</a><a href="#trial" data-lang-en>Trial Class</a><a href="#trial" data-lang-es>Clase de Prueba</a></li>
 </ul>
 </div>
 <div class="footer-col">
 <h4 data-lang-pt>Contato</h4><h4 data-lang-en>Contact</h4><h4 data-lang-es>Contacto</h4>
 <ul>
-<li><i class="fas fa-map-marker-alt" style="color:var(--red);margin-right:8px"></i> Rua Caramuru, 1438 112B<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Saúde, São Paulo, SP<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CEP 04138-002</li>
-<li style="margin-top:12px"><i class="fas fa-phone" style="color:var(--red);margin-right:8px"></i> (11) 3280-0014</li>
-<li><i class="fab fa-whatsapp" style="color:#25D366;margin-right:8px"></i> (11) 98108-8908</li>
+<li><i class="fas fa-phone" style="color:var(--red);margin-right:8px"></i> (11) 5589-2097</li>
 <li style="margin-top:8px"><i class="fas fa-envelope" style="color:var(--red);margin-right:8px"></i> contato@b2blanguages.com.br</li>
 </ul>
 </div>
@@ -694,8 +723,7 @@ body.lang-es [data-lang-es]{display:revert}
 </div>
 </footer>
 
-<!-- WHATSAPP FLOAT -->
-<a href="https://wa.me/5511981088908" target="_blank" class="wa-float" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+<!-- WhatsApp float removed per client request -->
 
 <script>
 // Language Switcher
