@@ -933,11 +933,10 @@ clearInterval(testTimer);
 
 // DEV MODE: ?dev=1 auto-fills and submits with random answers
 if(new URLSearchParams(window.location.search).get('dev') === '1') {
-personalData = {name:'Teste Dev', company:'LFSA', email:'dev@test.com', phone:'(11) 99999-9999'};
+personalData = {name:'Teste Dev', company:'LFSA Digital', email:'dev@test.com', phone:'(11) 99999-9999'};
 mcAnswers = mcQuestions.map(() => Math.floor(Math.random()*4));
-writingAnswers = writingTasks.map((t,i) => 'Dev test response for task '+(i+1));
-currentStep = 4;
-showResults();
+writingAnswers = writingTasks.map((t,i) => 'Dev test response for writing task number '+(i+1)+'. This is a sample answer to test the placement system end to end.');
+calculateResults();
 }
 </script>
 
