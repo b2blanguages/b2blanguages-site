@@ -818,23 +818,52 @@ mcScore += 1.9;
 }
 });
 
-// Determine level based on MC score
+// Mastery-based level determination (Cambridge-style)
+// Your level = highest band where you got ≥70% correct
+// Q1-12 = A1-A2 (12 questions), Q13-20 = A2-B1 (8), Q21-30 = B1-B2 (10), Q31-36 = B2-C1 (6), Q37-40 = C1-C2 (4)
+const bands = [
+  { name: 'A1-A2', start: 0, end: 12, threshold: 0.7 },
+  { name: 'A2-B1', start: 12, end: 20, threshold: 0.7 },
+  { name: 'B1-B2', start: 20, end: 30, threshold: 0.7 },
+  { name: 'B2-C1', start: 30, end: 36, threshold: 0.7 },
+  { name: 'C1-C2', start: 36, end: 40, threshold: 0.7 }
+];
+const bandResults = bands.map(band => {
+  let correct = 0;
+  const total = band.end - band.start;
+  for (let i = band.start; i < band.end; i++) {
+    if (mcAnswers[i] === mcQuestions[i].correct) correct++;
+  }
+  return { name: band.name, correct, total, pct: correct / total, passed: (correct / total) >= band.threshold };
+});
+
+// Level = highest band passed; must pass all previous bands too
 let level = 'A1 (Beginner)';
 let levelClass = 'level-a1';
-if(mcScore >= 69) { level = 'C2 (Proficient)'; levelClass = 'level-c2'; }
-else if(mcScore >= 58) { level = 'C1 (Advanced)'; levelClass = 'level-c1'; }
-else if(mcScore >= 46) { level = 'B2 (Upper Intermediate)'; levelClass = 'level-b2'; }
-else if(mcScore >= 31) { level = 'B1 (Intermediate)'; levelClass = 'level-b1'; }
-else if(mcScore >= 16) { level = 'A2 (Elementary)'; levelClass = 'level-a2'; }
+const levelMap = [
+  { band: 0, level: 'A2 (Elementary)', cls: 'level-a2' },
+  { band: 1, level: 'B1 (Intermediate)', cls: 'level-b1' },
+  { band: 2, level: 'B2 (Upper Intermediate)', cls: 'level-b2' },
+  { band: 3, level: 'C1 (Advanced)', cls: 'level-c1' },
+  { band: 4, level: 'C2 (Proficient)', cls: 'level-c2' }
+];
+for (const lm of levelMap) {
+  if (bandResults[lm.band].passed) {
+    level = lm.level;
+    levelClass = lm.cls;
+  } else {
+    break; // Stop at first band not mastered
+  }
+}
 
 // Score/level not shown to student — only sent via webhook
 
 updateProgress();
-submitResults(mcScore, level);
+submitResults(mcScore, level, bandResults);
 }
 
 // Webhook Submission
-async function submitResults(mcScore, level) {
+async function submitResults(mcScore, level, bandResults) {
 const testData = {
 lead: {
 name: personalData.name,
@@ -857,6 +886,7 @@ response: writingAnswers[index] || ''
 })),
 mc_score: Math.round(mcScore * 10) / 10,
 mc_total: 76,
+band_results: bandResults || [],
 writing_score_pending: true,
 writing_total: 24,
 max_score: 100,
