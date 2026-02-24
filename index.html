@@ -64,13 +64,15 @@ img{max-width:100%}
 
 /* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(255,255,255,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,0,0,0.08);transition:var(--transition)}
-nav .container{display:flex;align-items:center;justify-content:space-between;height:72px}
+nav .container{display:grid;grid-template-columns:160px 1fr auto;align-items:center;height:72px;gap:24px}
+.logo{flex-shrink:0;justify-self:start}
 .logo{display:flex;align-items:center;gap:0;text-decoration:none}
 .logo-mark{width:6px;height:36px;background:var(--red);border-radius:3px;margin-right:12px;flex-shrink:0}
 .logo-text{font-family:var(--font-head);font-size:1.4rem;font-weight:700;color:var(--gray-dark);line-height:1.1;letter-spacing:-0.5px}
 .logo-text .logo-sub{display:block;font-size:0.65rem;font-weight:400;text-transform:uppercase;letter-spacing:3px;color:var(--red);margin-top:1px}
 .logo-img{display:none}
-.nav-links{display:flex;align-items:center;gap:32px;list-style:none}
+.nav-links{display:flex;align-items:center;justify-content:center;gap:36px;list-style:none}
+.nav-links li{display:flex;align-items:center}
 .nav-links a{font-size:0.9rem;font-weight:400;color:var(--gray);transition:var(--transition);position:relative}
 .nav-links a:hover{color:var(--red)}
 .lang-switch{display:flex;gap:4px}
