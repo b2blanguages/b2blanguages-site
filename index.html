@@ -64,8 +64,8 @@ img{max-width:100%}
 
 /* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(255,255,255,0.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,0,0,0.08);transition:var(--transition)}
-nav .container{display:grid;grid-template-columns:160px 1fr auto;align-items:center;height:72px;gap:24px}
-.logo{flex-shrink:0;justify-self:start}
+nav .container{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:72px;gap:24px}
+.logo{flex-shrink:0;justify-self:start;padding-left:24px}
 .logo{display:flex;align-items:center;gap:0;text-decoration:none}
 .logo-mark{width:6px;height:36px;background:var(--red);border-radius:3px;margin-right:12px;flex-shrink:0}
 .logo-text{font-family:var(--font-head);font-size:1.4rem;font-weight:700;color:var(--gray-dark);line-height:1.1;letter-spacing:-0.5px}
@@ -105,6 +105,17 @@ nav .container{display:grid;grid-template-columns:160px 1fr auto;align-items:cen
 }
 @media(max-width:900px){.hero-logo-float{width:250px;height:250px;right:-5%;opacity:0.5}}
 .hero .container{position:relative;z-index:1}
+
+/* SECTION FLOATING LOGOS */
+.section-logo-float{position:absolute;right:5%;top:50%;width:200px;height:200px;transform:translateY(-50%);background:url('images/logo-header.png') center/contain no-repeat;pointer-events:none;animation:sectionFloat 15s ease-in-out infinite;opacity:0.15;z-index:0}
+@keyframes sectionFloat{
+0%{transform:translateY(-50%) translateX(0) rotate(0deg) scale(1)}
+25%{transform:translateY(-55%) translateX(-15px) rotate(2deg) scale(1.02)}
+50%{transform:translateY(-48%) translateX(10px) rotate(-1deg) scale(0.98)}
+75%{transform:translateY(-52%) translateX(-10px) rotate(1deg) scale(1.01)}
+100%{transform:translateY(-50%) translateX(0) rotate(0deg) scale(1)}
+}
+@media(max-width:900px){.section-logo-float{width:120px;height:120px;opacity:0.1}}
 .hero-content{max-width:700px}
 .hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.3);padding:8px 18px;border-radius:50px;font-size:0.85rem;color:#fff;margin-bottom:28px}
 .hero h1{font-family:var(--font-head);font-size:clamp(2.5rem,6vw,4rem);font-weight:700;line-height:1.1;margin-bottom:20px;color:#fff}
@@ -293,23 +304,23 @@ body.lang-es [data-lang-es]{display:revert}
 <!-- NAV -->
 <nav>
 <div class="container">
-<a href="#" class="logo"><img src="images/logo-header.png" alt="B2B Languages" style="height:68px;width:auto;mix-blend-mode:multiply"></a>
+<a href="#" class="logo"><img src="images/logo-header.png" alt="B2B Languages" style="height:68px;width:auto"></a>
 <ul class="nav-links" id="navLinks">
 <li><a href="#solucoes" data-lang-pt>Soluções</a><a href="#solucoes" data-lang-en>Solutions</a><a href="#solucoes" data-lang-es>Soluciones</a></li>
 <li><a href="#metodo" data-lang-pt>Método</a><a href="#metodo" data-lang-en>Method</a><a href="#metodo" data-lang-es>Método</a></li>
 <li><a href="#empresas" data-lang-pt>Empresas</a><a href="#empresas" data-lang-en>Companies</a><a href="#empresas" data-lang-es>Empresas</a></li>
 <li><a href="#depoimentos" data-lang-pt>Depoimentos</a><a href="#depoimentos" data-lang-en>Testimonials</a><a href="#depoimentos" data-lang-es>Testimonios</a></li>
 <li><a href="#contato" data-lang-pt>Contato</a><a href="#contato" data-lang-en>Contact</a><a href="#contato" data-lang-es>Contacto</a></li>
-<li>
+</ul>
+<div class="nav-right" style="display:flex;align-items:center;gap:16px;justify-self:end;padding-right:24px">
 <div class="lang-switch">
 <button class="lang-btn active" data-setlang="pt">🇧🇷 PT</button>
 <button class="lang-btn" data-setlang="en">🇺🇸 EN</button>
 <button class="lang-btn" data-setlang="es">🇪🇸 ES</button>
 </div>
-</li>
-<li><a href="placement/" class="nav-cta"><span data-lang-pt>Teste seu Nível</span><span data-lang-en>Test your Level</span><span data-lang-es>Pruebe su Nivel</span></a></li>
-</ul>
+<a href="placement/" class="nav-cta"><span data-lang-pt>Teste seu Nível</span><span data-lang-en>Test your Level</span><span data-lang-es>Pruebe su Nivel</span></a>
 <button class="hamburger" id="hamburger" aria-label="Menu"><i class="fas fa-bars"></i></button>
+</div>
 </div>
 </nav>
 
@@ -334,7 +345,8 @@ body.lang-es [data-lang-es]{display:revert}
 </section>
 
 <!-- SERVICES -->
-<section id="solucoes">
+<section id="solucoes" style="position:relative;overflow:hidden">
+<div class="section-logo-float"></div>
 <div class="container">
 <div class="reveal">
 <p class="section-label" data-lang-pt>Soluções</p>
@@ -398,7 +410,8 @@ body.lang-es [data-lang-es]{display:revert}
 </section>
 
 <!-- METHOD -->
-<section id="metodo">
+<section id="metodo" style="position:relative;overflow:hidden">
+<div class="section-logo-float"></div>
 <div class="container">
 <div class="reveal">
 <p class="section-label" data-lang-pt>Nosso Método</p>
@@ -462,7 +475,8 @@ body.lang-es [data-lang-es]{display:revert}
 </section>
 
 <!-- STATS -->
-<section class="stats">
+<section class="stats" style="position:relative;overflow:hidden">
+<div class="section-logo-float"></div>
 <div class="container">
 <div class="stat-item reveal">
 <div class="stat-num">+[X]</div>
@@ -492,7 +506,8 @@ body.lang-es [data-lang-es]{display:revert}
 </section>
 
 <!-- CLIENTS -->
-<section id="empresas">
+<section id="empresas" style="position:relative;overflow:hidden">
+<div class="section-logo-float"></div>
 <div class="container">
 <div class="reveal" style="text-align:center">
 <p class="section-label" data-lang-pt>Clientes</p>
@@ -534,7 +549,8 @@ body.lang-es [data-lang-es]{display:revert}
 </section>
 
 <!-- TESTIMONIALS -->
-<section id="depoimentos">
+<section id="depoimentos" style="position:relative;overflow:hidden">
+<div class="section-logo-float"></div>
 <div class="container">
 <div class="reveal">
 <p class="section-label" data-lang-pt>Depoimentos</p>
@@ -592,7 +608,8 @@ body.lang-es [data-lang-es]{display:revert}
 </section>
 
 <!-- CONTACT -->
-<section id="contato">
+<section id="contato" style="position:relative;overflow:hidden">
+<div class="section-logo-float"></div>
 <div class="container">
 <div class="reveal" style="text-align:center">
 <p class="section-label" data-lang-pt>Contato</p>
@@ -630,7 +647,8 @@ body.lang-es [data-lang-es]{display:revert}
 <!-- Trial section removed -->
 
 <!-- FAQ -->
-<section id="faq">
+<section id="faq" style="position:relative;overflow:hidden">
+<div class="section-logo-float"></div>
 <div class="container">
 <div class="reveal" style="text-align:center">
 <p class="section-label">FAQ</p>
