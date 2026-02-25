@@ -172,10 +172,10 @@ section{padding:100px 0}
 .method-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:20px;margin-top:50px}
 @media(max-width:1200px){.method-grid{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:768px){.method-grid{grid-template-columns:1fr}}
-.method-item{background:var(--white);border:1px solid rgba(0,0,0,0.08);border-radius:16px;padding:28px;transition:all 0.3s ease;position:relative;overflow:visible;box-shadow:0 2px 8px rgba(0,0,0,0.04);display:flex;gap:14px;align-items:flex-start;cursor:pointer;z-index:1}
+.method-item{background:var(--white);border:1px solid rgba(0,0,0,0.08);border-radius:16px;padding:28px;transition:all 0.35s ease;position:relative;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.04);display:flex;gap:14px;align-items:flex-start;cursor:pointer;z-index:1}
 .method-item::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--red),var(--gold));transform:scaleX(0);transform-origin:left;transition:transform 0.4s ease;z-index:2}
 .method-item:hover::before{transform:scaleX(1)}
-.method-item:hover{transform:scale(1.15);border-color:rgba(140,49,36,0.2);box-shadow:0 12px 40px rgba(0,0,0,0.18);z-index:10}
+.method-item:hover{z-index:10;border-color:rgba(140,49,36,0.2);box-shadow:0 16px 50px rgba(0,0,0,0.22);overflow:visible;transform:scaleX(1.3) scaleY(1.1)}
 .method-num{flex-shrink:0;width:40px;height:40px;border-radius:12px;background:rgba(140,49,36,0.15);color:var(--red);display:flex;align-items:center;justify-content:center;font-family:var(--font-head);font-weight:600;font-size:1rem}
 .method-item h4{font-size:1rem;margin-bottom:6px;color:var(--gray-dark)}
 .method-item p{color:var(--gray);font-size:0.85rem;line-height:1.6;max-height:2.6em;overflow:hidden;transition:max-height 0.4s ease;position:relative}
@@ -382,7 +382,7 @@ body.lang-es [data-lang-es]{display:revert}
 <p data-lang-pt>Programas personalizados de longa duração que visam o desenvolvimento das habilidades comunicativas, enfocando suas necessidades específicas e trabalhando conteúdos relevantes para aplicação em sua rotina de trabalho.</p>
 <p data-lang-en>Personalized long-term programs designed to develop communication skills, focusing on your specific needs and working with content relevant to your daily work routine.</p>
 <p data-lang-es>Programas personalizados de larga duración que buscan el desarrollo de habilidades comunicativas, enfocándose en sus necesidades específicas y trabajando contenidos relevantes para su rutina laboral.</p>
-<span class="hover-hint">ler mais ↓</span>
+<span class="hover-hint"><span data-lang-pt>ler mais ↓</span><span data-lang-en>read more ↓</span><span data-lang-es>leer más ↓</span></span>
 </div>
 <!-- Aulas em Grupo -->
 <div class="service-card reveal reveal-delay-2">
@@ -391,7 +391,7 @@ body.lang-es [data-lang-es]{display:revert}
 <p data-lang-pt>Aulas online em grupos de até 4 alunos. Horários flexíveis de segunda a sexta, das 7h às 21h, e aos sábados, das 9h às 13h.</p>
 <p data-lang-en>Online classes in groups of up to 4 students. Flexible schedules Monday to Friday, 7AM to 9PM, and Saturdays, 9AM to 1PM.</p>
 <p data-lang-es>Clases online en grupos de hasta 4 alumnos. Horarios flexibles de lunes a viernes, de 7h a 21h, y sábados, de 9h a 13h.</p>
-<span class="hover-hint">ler mais ↓</span>
+<span class="hover-hint"><span data-lang-pt>ler mais ↓</span><span data-lang-en>read more ↓</span><span data-lang-es>leer más ↓</span></span>
 </div>
 <!-- Entrevistas -->
 <div class="service-card reveal reveal-delay-3">
@@ -400,7 +400,7 @@ body.lang-es [data-lang-es]{display:revert}
 <p data-lang-pt>Workshops intensivos para preparação de entrevistas bilíngues, CVs, cartas de apresentação, negociações e apresentações corporativas. Ferramentas práticas para uso imediato.</p>
 <p data-lang-en>Intensive workshops for bilingual interview preparation, CVs, cover letters, negotiations, and corporate presentations. Practical tools for immediate use.</p>
 <p data-lang-es>Workshops intensivos para preparación de entrevistas bilingües, CVs, cartas de presentación, negociaciones y presentaciones corporativas. Herramientas prácticas para uso inmediato.</p>
-<span class="hover-hint">ler mais ↓</span>
+<span class="hover-hint"><span data-lang-pt>ler mais ↓</span><span data-lang-en>read more ↓</span><span data-lang-es>leer más ↓</span></span>
 </div>
 <!-- Preparatorio para Testes -->
 <div class="service-card reveal reveal-delay-4">
@@ -409,7 +409,7 @@ body.lang-es [data-lang-es]{display:revert}
 <p data-lang-pt>Cursos preparatórios para certificações internacionais que combinam uma abordagem completa da língua com estratégias e conhecimentos específicos para cada teste. Orientação na escolha do exame adequado ao seu perfil.</p>
 <p data-lang-en>Preparatory courses for international certifications combining a comprehensive language approach with specific strategies and knowledge for each test. Guidance on choosing the right exam for your profile.</p>
 <p data-lang-es>Cursos preparatorios para certificaciones internacionales que combinan un enfoque completo del idioma con estrategias y conocimientos específicos para cada examen. Orientación en la elección del examen adecuado a su perfil.</p>
-<span class="hover-hint">ler mais ↓</span>
+<span class="hover-hint"><span data-lang-pt>ler mais ↓</span><span data-lang-en>read more ↓</span><span data-lang-es>leer más ↓</span></span>
 </div>
 <!-- Cursos no Exterior -->
 <div class="service-card reveal reveal-delay-5">
@@ -418,7 +418,7 @@ body.lang-es [data-lang-es]{display:revert}
 <p data-lang-pt>Consultoria especializada para cursos no Canadá, Estados Unidos e Inglaterra. Assessoria completa com instituições de ensino, passaporte, visto, passagens, seguro viagem e acomodação.</p>
 <p data-lang-en>Specialized consulting for courses in Canada, the United States, and England. Full support with educational institutions, passport, visa, flights, travel insurance, and accommodation.</p>
 <p data-lang-es>Consultoría especializada para cursos en Canadá, Estados Unidos e Inglaterra. Asesoría completa con instituciones educativas, pasaporte, visa, pasajes, seguro de viaje y alojamiento.</p>
-<span class="hover-hint">ler mais ↓</span>
+<span class="hover-hint"><span data-lang-pt>ler mais ↓</span><span data-lang-en>read more ↓</span><span data-lang-es>leer más ↓</span></span>
 </div>
 <!-- Inglês Geral -->
 <div class="service-card reveal reveal-delay-6">
@@ -427,7 +427,7 @@ body.lang-es [data-lang-es]{display:revert}
 <p data-lang-pt>Também oferecemos programas de inglês geral para alunos que buscam desenvolvimento pessoal, preparação para viagens internacionais e aprimoramento da comunicação em contextos não corporativos. As aulas incluem simulações de situações reais, como aeroportos, hotéis, reuniões sociais e interações do dia a dia, com foco em fluência, vocabulário e segurança na comunicação.</p>
 <p data-lang-en>We also offer general English programs for students seeking personal development, preparation for international travel, and improvement of communication in non-corporate contexts. Classes include simulations of real situations, such as airports, hotels, social meetings, and daily interactions, focusing on fluency, vocabulary, and confidence in communication.</p>
 <p data-lang-es>También ofrecemos programas de inglés general para alumnos que buscan desarrollo personal, preparación para viajes internacionales y mejora de la comunicación en contextos no corporativos. Las clases incluyen simulaciones de situaciones reales, como aeropuertos, hoteles, reuniones sociales e interacciones cotidianas, con enfoque en fluidez, vocabulario y seguridad en la comunicación.</p>
-<span class="hover-hint">ler mais ↓</span>
+<span class="hover-hint"><span data-lang-pt>ler mais ↓</span><span data-lang-en>read more ↓</span><span data-lang-es>leer más ↓</span></span>
 </div>
 </div>
 </div>
@@ -453,7 +453,7 @@ body.lang-es [data-lang-es]{display:revert}
 <p data-lang-pt>Cada aluno é direcionado a um professor compatível com seu nível, objetivos e área de atuação. A combinação é feita de forma estratégica, considerando experiência profissional, especialização e estilo de aprendizagem.</p>
 <p data-lang-en>Each student is matched with a teacher compatible with their level, goals, and field of expertise. The pairing is done strategically, considering professional experience, specialization, and learning style.</p>
 <p data-lang-es>Cada alumno es dirigido a un profesor compatible con su nivel, objetivos y área de actuación. La combinación se hace de forma estratégica, considerando experiencia profesional, especialización y estilo de aprendizaje.</p>
-<span class="hover-hint">ler mais ↓</span>
+<span class="hover-hint"><span data-lang-pt>ler mais ↓</span><span data-lang-en>read more ↓</span><span data-lang-es>leer más ↓</span></span>
 </div>
 </div>
 <div class="method-item reveal reveal-delay-2">
@@ -463,7 +463,7 @@ body.lang-es [data-lang-es]{display:revert}
 <p data-lang-pt>Trabalhamos com temas atuais, tendências de mercado e situações reais do ambiente corporativo. A Inteligência Artificial é utilizada como ferramenta complementar para personalizar atividades, simulações e análises de desempenho.</p>
 <p data-lang-en>We work with current topics, market trends, and real corporate scenarios. Artificial Intelligence is used as a complementary tool to personalize activities, simulations, and performance analysis.</p>
 <p data-lang-es>Trabajamos con temas actuales, tendencias de mercado y situaciones reales del ambiente corporativo. La Inteligencia Artificial se utiliza como herramienta complementaria para personalizar actividades, simulaciones y análisis de desempeño.</p>
-<span class="hover-hint">ler mais ↓</span>
+<span class="hover-hint"><span data-lang-pt>ler mais ↓</span><span data-lang-en>read more ↓</span><span data-lang-es>leer más ↓</span></span>
 </div>
 </div>
 <div class="method-item reveal reveal-delay-3">
@@ -473,7 +473,7 @@ body.lang-es [data-lang-es]{display:revert}
 <p data-lang-pt>Aulas 100% online com horários adaptáveis à rotina do aluno, incluindo programas intensivos e formatos personalizados conforme metas e disponibilidade.</p>
 <p data-lang-en>100% online classes with schedules adaptable to the student's routine, including intensive programs and customized formats according to goals and availability.</p>
 <p data-lang-es>Clases 100% online con horarios adaptables a la rutina del alumno, incluyendo programas intensivos y formatos personalizados según metas y disponibilidad.</p>
-<span class="hover-hint">ler mais ↓</span>
+<span class="hover-hint"><span data-lang-pt>ler mais ↓</span><span data-lang-en>read more ↓</span><span data-lang-es>leer más ↓</span></span>
 </div>
 </div>
 <div class="method-item reveal reveal-delay-4">
@@ -483,7 +483,7 @@ body.lang-es [data-lang-es]{display:revert}
 <p data-lang-pt>Indicamos séries, podcasts, vídeos e canais corporativos de acordo com o perfil e os objetivos do aluno, estimulando a prática contínua do inglês. Esses conteúdos são incorporados às aulas para aprofundar discussões.</p>
 <p data-lang-en>We recommend series, podcasts, videos, and corporate channels according to the student's profile and goals, encouraging continuous English practice. These contents are incorporated into classes to deepen discussions.</p>
 <p data-lang-es>Indicamos series, podcasts, videos y canales corporativos según el perfil y los objetivos del alumno, estimulando la práctica continua del inglés. Estos contenidos se incorporan a las clases para profundizar discusiones.</p>
-<span class="hover-hint">ler mais ↓</span>
+<span class="hover-hint"><span data-lang-pt>ler mais ↓</span><span data-lang-en>read more ↓</span><span data-lang-es>leer más ↓</span></span>
 </div>
 </div>
 <div class="method-item reveal reveal-delay-5">
@@ -493,7 +493,7 @@ body.lang-es [data-lang-es]{display:revert}
 <p data-lang-pt>Utilizamos livros importados de editoras americanas e britânicas, alinhados aos padrões globais de ensino e às exigências do mercado internacional.</p>
 <p data-lang-en>We use books imported from American and British publishers, aligned with global teaching standards and international market requirements.</p>
 <p data-lang-es>Utilizamos libros importados de editoriales americanas y británicas, alineados a los estándares globales de enseñanza y a los requisitos del mercado internacional.</p>
-<span class="hover-hint">ler mais ↓</span>
+<span class="hover-hint"><span data-lang-pt>ler mais ↓</span><span data-lang-en>read more ↓</span><span data-lang-es>leer más ↓</span></span>
 </div>
 </div>
 </div>
