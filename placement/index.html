@@ -752,6 +752,30 @@ opt.querySelector('.mc-option-radio').innerHTML = '';
 }
 
 function nextPage() {
+// Validate all questions on current page are answered
+const startIdx = currentMCPage * QUESTIONS_PER_PAGE;
+const endIdx = Math.min(startIdx + QUESTIONS_PER_PAGE, mcQuestions.length);
+const unanswered = [];
+for(let i = startIdx; i < endIdx; i++) {
+if(mcAnswers[i] === undefined || mcAnswers[i] === null) {
+unanswered.push(i - startIdx);
+}
+}
+if(unanswered.length > 0) {
+// Highlight unanswered cards
+const cards = document.querySelectorAll('.mc-card');
+cards.forEach((card, idx) => {
+if(unanswered.includes(idx)) {
+card.style.border = '2px solid var(--red)';
+card.style.boxShadow = '0 0 0 3px rgba(140,49,36,0.15)';
+} else {
+card.style.border = '2px solid #e5e5e5';
+card.style.boxShadow = 'none';
+}
+});
+alert('Por favor, responda todas as questões antes de continuar.');
+return;
+}
 currentMCPage++;
 if(currentMCPage >= TOTAL_MC_PAGES) {
 showStep(3);
@@ -798,7 +822,16 @@ document.getElementById('translationText').classList.toggle('visible');
 }
 
 function nextWriting() {
-writingAnswers[currentWritingTask] = document.getElementById('writingTextarea').value.trim();
+const text = document.getElementById('writingTextarea').value.trim();
+if(!text) {
+document.getElementById('writingTextarea').style.border = '2px solid var(--red)';
+document.getElementById('writingTextarea').style.boxShadow = '0 0 0 3px rgba(140,49,36,0.15)';
+alert('Por favor, escreva sua resposta antes de continuar.');
+return;
+}
+document.getElementById('writingTextarea').style.border = '';
+document.getElementById('writingTextarea').style.boxShadow = '';
+writingAnswers[currentWritingTask] = text;
 currentWritingTask++;
 if(currentWritingTask >= writingTasks.length) {
 showStep(4);
