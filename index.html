@@ -600,7 +600,7 @@ body.lang-es [data-lang-es]{display:revert}
 <h2 data-lang-pt>Antes de ir, que tal testar seu nível?</h2>
 <h2 data-lang-en>Before you go, test your level?</h2>
 <h2 data-lang-es>¿Antes de irse, pruebe su nivel?</h2>
-<p data-lang-pt>Deixe seus dados e agende um teste de nível gratuito. Vamos montar um plano personalizado para você.</p>
+<p data-lang-pt>Deixe seus dados e faça um teste grátis para saber seu nível. Vamos montar um plano personalizado para você.</p>
 <p data-lang-en>Leave your details and schedule a free level test. We'll create a personalized plan for you.</p>
 <p data-lang-es>Deje sus datos y agende una prueba de nivel gratuita. Crearemos un plan personalizado para usted.</p>
 <form class="form-grid" id="exitForm">
@@ -681,11 +681,17 @@ document.getElementById('exitOverlay').addEventListener('click', function(e) {
 document.getElementById('exitForm').addEventListener('submit', async function(e) {
   e.preventDefault();
   const fd = new FormData(this);
-  const data = { name: fd.get('name'), email: fd.get('email'), phone: fd.get('phone'), language: fd.get('language'), source: 'b2blanguages.com.br', type: 'level_test', timestamp: new Date().toISOString() };
+  const language = fd.get('language');
+  const data = { name: fd.get('name'), email: fd.get('email'), phone: fd.get('phone'), language: language, source: 'b2blanguages.com.br', type: 'level_test', timestamp: new Date().toISOString() };
   try {
     await fetch('https://n8n.lfsadigital.com/webhook/b2b-contact-form', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
   } catch(e) {}
-  this.innerHTML = '<div style="text-align:center;padding:20px"><i class="fas fa-check-circle" style="font-size:2.5rem;color:var(--teal);margin-bottom:12px"></i><h3 style="color:var(--gray-dark)">Recebemos seus dados!</h3><p style="color:var(--gray)">Entraremos em contato para agendar seu teste de nível.</p></div>';
+  // Redirect to appropriate test based on language selection
+  if (language === 'spanish') {
+    window.location.href = 'placement/espanol/';
+  } else {
+    window.location.href = 'placement/english/';
+  }
 });
 // Simple hover effects handled by CSS only
 </script>
