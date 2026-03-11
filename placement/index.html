@@ -248,15 +248,15 @@ Voltar ao Site
 <div class="form-group" style="margin-bottom:32px">
 <label class="form-label" style="text-align:center;font-size:1.1rem;margin-bottom:16px">Escolha seu idioma de interesse / Elija su idioma de interés</label>
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
-<div onclick="startEnglishTest()" id="lang-english" class="language-option" style="background:#fff;border:3px solid var(--red);border-radius:12px;padding:24px;text-align:center;cursor:pointer;box-shadow:0 4px 12px rgba(140,49,36,0.15)">
+<button type="button" onclick="startEnglishTest()" id="lang-english" style="background:#fff;border:3px solid #8c3124;border-radius:12px;padding:24px;text-align:center;cursor:pointer;box-shadow:0 4px 12px rgba(140,49,36,0.15);font-family:inherit;width:100%">
 <div style="font-size:3rem;margin-bottom:12px">🇺🇸</div>
-<div style="font-weight:700;color:var(--gray-dark);font-size:1.1rem;margin-bottom:4px">English / Inglês</div>
-<div style="font-size:0.9rem;color:var(--gray)">Fazer teste de inglês</div>
-</div>
-<a href="espanol/" id="lang-spanish" class="language-option" style="background:#fff;border:2px solid #ddd;border-radius:12px;padding:24px;text-align:center;cursor:pointer;text-decoration:none;display:block;transition:all 0.3s">
+<div style="font-weight:700;color:#363636;font-size:1.1rem;margin-bottom:4px">English / Inglês</div>
+<div style="font-size:0.9rem;color:#666">Fazer teste de inglês</div>
+</button>
+<a href="espanol/" style="background:#fff;border:2px solid #ddd;border-radius:12px;padding:24px;text-align:center;cursor:pointer;text-decoration:none;display:block;transition:all 0.3s">
 <div style="font-size:3rem;margin-bottom:12px">🇪🇸</div>
-<div style="font-weight:700;color:var(--gray-dark);font-size:1.1rem;margin-bottom:4px">Español / Espanhol</div>
-<div style="font-size:0.9rem;color:var(--gray)">Hacer prueba de español</div>
+<div style="font-weight:700;color:#363636;font-size:1.1rem;margin-bottom:4px">Español / Espanhol</div>
+<div style="font-size:0.9rem;color:#666">Hacer prueba de español</div>
 </a>
 </div>
 <input type="hidden" id="languageInterest" name="languageInterest" value="english">
@@ -730,7 +730,15 @@ document.getElementById('lang-' + lang).style.borderColor = 'var(--red)';
 
 function startEnglishTest() {
 document.getElementById('languageInterest').value = 'english';
-showStep(1);
+// Hide language selector section
+const langSelector = document.querySelector('.language-selector');
+if(langSelector) langSelector.style.display = 'none';
+// Show the form by removing hidden class from step1
+const step1 = document.getElementById('step1');
+step1.classList.remove('hidden');
+// Hide just the language selector div inside the form
+const langDiv = document.querySelector('#step1 .form-group:first-child');
+if(langDiv) langDiv.style.display = 'none';
 }
 
 // STEP 1: Personal Details
