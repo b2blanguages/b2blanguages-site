@@ -990,7 +990,6 @@ currentStep = 4;
 updateStepIndicators();
 }
 
-const task = writingTasks[currentWritingTask];
 document.getElementById('writingTitle').textContent = task.title;
 document.getElementById('writingDescription').textContent = task.description;
 document.getElementById('translationText').textContent = task.translation;
@@ -1133,6 +1132,93 @@ resetRecordingUI();
 writingAnswers[currentWritingTask] = '';
 }
 
+// Step 4 Audio Recording Functions (for second audio question)
+async function startRecording4() {
+// Use same logic as startRecording but with step 4 elements
+const step4 = true;
+try {
+const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+mediaRecorder = new MediaRecorder(stream);
+audioChunks = [];
+
+mediaRecorder.ondataavailable = (e) => {
+if(e.data.size > 0) audioChunks.push(e.data);
+};
+
+mediaRecorder.onstop = async () => {
+const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+currentAudioBlob = audioBlob;
+const audioUrl = URL.createObjectURL(audioBlob);
+document.getElementById('recordedAudio4').src = audioUrl;
+document.getElementById('audioPlayback4').style.display = 'block';
+document.getElementById('audioReady4').style.display = 'block';
+document.getElementById('audioRerecordMsg4').style.display = 'block';
+document.getElementById('recorderBox4').classList.add('has-recording');
+
+stream.getTracks().forEach(track => track.stop());
+};
+
+mediaRecorder.start();
+recordingStartTime = Date.now();
+
+// Update UI for step 4
+document.getElementById('recordBtn4').style.display = 'none';
+document.getElementById('stopBtn4').style.display = 'inline-flex';
+document.getElementById('recordingTimer4').style.display = 'block';
+document.getElementById('recorderStatus4').classList.add('recording');
+document.getElementById('recorderBox4').classList.add('recording');
+
+// Start timer for step 4
+recordingTimerInterval = setInterval(() => {
+const elapsed = Math.floor((Date.now() - recordingStartTime) / 1000);
+const minutes = Math.floor(elapsed / 60);
+const seconds = elapsed % 60;
+document.getElementById('timerDisplay4').textContent = 
+`${minutes.toString().padStart(2,'0')}:${seconds.toString().padStart(2,'0')}`;
+}, 1000);
+
+} catch(err) {
+console.error('Error accessing microphone:', err);
+alert('Erro ao acessar o microfone. Por favor, permita o acesso e tente novamente.');
+}
+}
+
+function stopRecording4() {
+if(mediaRecorder && mediaRecorder.state !== 'inactive') {
+mediaRecorder.stop();
+clearInterval(recordingTimerInterval);
+document.getElementById('stopBtn4').style.display = 'none';
+document.getElementById('recorderStatus4').classList.remove('recording');
+document.getElementById('recorderBox4').classList.remove('recording');
+}
+}
+
+function resetRecording4() {
+// Reset for step 4
+currentAudioBlob = null;
+if(mediaRecorder && mediaRecorder.state !== 'inactive') {
+mediaRecorder.stop();
+}
+mediaRecorder = null;
+audioChunks = [];
+clearInterval(recordingTimerInterval);
+
+document.getElementById('recordBtn4').style.display = 'inline-flex';
+document.getElementById('stopBtn4').style.display = 'none';
+document.getElementById('recordingTimer4').style.display = 'none';
+document.getElementById('audioPlayback4').style.display = 'none';
+document.getElementById('audioReady4').style.display = 'none';
+document.getElementById('audioRerecordMsg4').style.display = 'none';
+document.getElementById('uploadStatus4').style.display = 'none';
+document.getElementById('uploadSuccess4').style.display = 'none';
+document.getElementById('uploadError4').style.display = 'none';
+document.getElementById('recorderStatus4').classList.remove('recording');
+document.getElementById('recorderBox4').classList.remove('recording', 'has-recording');
+document.getElementById('recorderStatus4').innerHTML = '<i class="fas fa-microphone"></i><p>Clique no botão abaixo para gravar sua resposta</p>';
+
+writingAnswers[currentWritingTask] = '';
+}
+
 function updateRecordingTimer() {
 const elapsed = Math.floor((Date.now() - recordingStartTime) / 1000);
 const minutes = Math.floor(elapsed / 60);
@@ -1210,7 +1296,7 @@ writingAnswers[currentWritingTask] = text || '';
 
 currentWritingTask++;
 if(currentWritingTask >= writingTasks.length) {
-showStep(4);
+showStep(5);
 calculateResults();
 } else {
 loadWritingTask();
