@@ -1243,11 +1243,13 @@ document.getElementById('recorderState1' + suffix).style.display = 'none';
 document.getElementById('recorderState2' + suffix).style.display = 'none';
 document.getElementById('recorderState3' + suffix).style.display = 'flex';
 
-// Set the audio source and load it
+// Set the audio source after a small delay to ensure element is visible
 const audioEl = document.getElementById('recordedAudio' + suffix);
 if(audioEl && audioUrl) {
+setTimeout(() => {
 audioEl.src = audioUrl;
 audioEl.load();
+}, 50);
 }
 }
 
@@ -1262,8 +1264,14 @@ if(e.data.size > 0) audioChunks.push(e.data);
 };
 
 mediaRecorder.onstop = async () => {
-// Use mp4 for Safari compatibility, fallback to webm
-const mimeType = MediaRecorder.isTypeSupported('audio/mp4') ? 'audio/mp4' : 'audio/webm';
+// Determine best MIME type for browser compatibility
+let mimeType = 'audio/webm';
+if(MediaRecorder.isTypeSupported('audio/mp4')) {
+mimeType = 'audio/mp4';
+} else if(MediaRecorder.isTypeSupported('audio/webm;codecs=opus')) {
+mimeType = 'audio/webm;codecs=opus';
+}
+
 const audioBlob = new Blob(audioChunks, { type: mimeType });
 currentAudioBlob = audioBlob;
 const audioUrl = URL.createObjectURL(audioBlob);
@@ -1315,8 +1323,14 @@ if(e.data.size > 0) audioChunks.push(e.data);
 };
 
 mediaRecorder.onstop = async () => {
-// Use mp4 for Safari compatibility, fallback to webm
-const mimeType = MediaRecorder.isTypeSupported('audio/mp4') ? 'audio/mp4' : 'audio/webm';
+// Determine best MIME type for browser compatibility
+let mimeType = 'audio/webm';
+if(MediaRecorder.isTypeSupported('audio/mp4')) {
+mimeType = 'audio/mp4';
+} else if(MediaRecorder.isTypeSupported('audio/webm;codecs=opus')) {
+mimeType = 'audio/webm;codecs=opus';
+}
+
 const audioBlob = new Blob(audioChunks, { type: mimeType });
 currentAudioBlob = audioBlob;
 const audioUrl = URL.createObjectURL(audioBlob);
