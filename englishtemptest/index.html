@@ -1081,16 +1081,20 @@ resetRecordingUI();
 
 // Show/hide appropriate UI based on task type
 if(task.type === 'audio') {
-// Audio task
+// Audio task - first reset the UI to initial state
+if(useStep4) {
+resetRecordingUI4();
+} else {
+resetRecordingUI();
+}
+
+// If there's a saved URL, show playback state
 const savedUrl = writingAnswers[currentWritingTask];
 if(savedUrl && savedUrl.startsWith('http')) {
 if(useStep4) {
-document.getElementById('recordedAudio4').src = savedUrl;
-document.getElementById('audioPlayback4').style.display = 'block';
-document.getElementById('audioReady4').style.display = 'block';
-document.getElementById('audioRerecordMsg4').style.display = 'block';
-document.getElementById('recordBtn4').style.display = 'none';
-document.getElementById('recorderBox4').classList.add('has-recording');
+showPlaybackState(4, savedUrl);
+} else {
+showPlaybackState(3, savedUrl);
 }
 }
 document.getElementById('writingTextarea').style.display = 'none';
@@ -1185,18 +1189,18 @@ mediaRecorder = null;
 audioChunks = [];
 clearInterval(recordingTimerInterval);
 
-document.getElementById('recordBtn4').style.display = 'inline-flex';
-document.getElementById('stopBtn4').style.display = 'none';
-document.getElementById('recordingTimer4').style.display = 'none';
-document.getElementById('audioPlayback4').style.display = 'none';
-document.getElementById('audioReady4').style.display = 'none';
-document.getElementById('audioRerecordMsg4').style.display = 'none';
+// Show State 1 (Initial), hide State 2 and 3
+document.getElementById('recorderState1_4').style.display = 'flex';
+document.getElementById('recorderState2_4').style.display = 'none';
+document.getElementById('recorderState3_4').style.display = 'none';
+
+// Reset upload status elements
 document.getElementById('uploadStatus4').style.display = 'none';
 document.getElementById('uploadSuccess4').style.display = 'none';
 document.getElementById('uploadError4').style.display = 'none';
-document.getElementById('recorderStatus4').classList.remove('recording');
-document.getElementById('recorderBox4').classList.remove('recording', 'has-recording');
-document.getElementById('recorderStatus4').innerHTML = '<i class="fas fa-microphone"></i><p>Clique no botão abaixo para gravar sua resposta</p>';
+
+// Reset timer display
+document.getElementById('timerDisplay4').textContent = '00:00';
 }
 
 // Audio Recording Functions
@@ -1209,24 +1213,40 @@ mediaRecorder = null;
 audioChunks = [];
 clearInterval(recordingTimerInterval);
 
-// Reset all UI elements - clean UI
-document.getElementById('recordBtn').style.display = 'inline-flex';
-document.getElementById('stopBtn').style.display = 'none';
-document.getElementById('recordingTimer').style.display = 'none';
-document.getElementById('audioPlayback').style.display = 'none';
+// Show State 1 (Initial), hide State 2 and 3
+document.getElementById('recorderState1').style.display = 'flex';
+document.getElementById('recorderState2').style.display = 'none';
+document.getElementById('recorderState3').style.display = 'none';
+
+// Reset upload status elements
 document.getElementById('uploadStatus').style.display = 'none';
 document.getElementById('uploadSuccess').style.display = 'none';
 document.getElementById('uploadError').style.display = 'none';
-document.getElementById('recorderStatus').classList.remove('recording');
-document.getElementById('recorderBox').classList.remove('recording', 'has-recording');
+
+// Reset timer display
+document.getElementById('timerDisplay').textContent = '00:00';
 }
 
-function showAudioPlayback(url) {
-// Clean UI - just show audio player and re-record button
-document.getElementById('recordedAudio').src = url;
-document.getElementById('audioPlayback').style.display = 'block';
-document.getElementById('recordBtn').style.display = 'none';
-document.getElementById('recorderBox').classList.add('has-recording');
+function showRecordingStates(step) {
+// Show State 2 (Recording), hide State 1 and 3
+const suffix = step === 4 ? '_4' : '';
+document.getElementById('recorderState1' + suffix).style.display = 'none';
+document.getElementById('recorderState2' + suffix).style.display = 'flex';
+document.getElementById('recorderState3' + suffix).style.display = 'none';
+}
+
+function showPlaybackState(step, audioUrl) {
+// Show State 3 (Playback), hide State 1 and 2
+const suffix = step === 4 ? '_4' : '';
+document.getElementById('recorderState1' + suffix).style.display = 'none';
+document.getElementById('recorderState2' + suffix).style.display = 'none';
+document.getElementById('recorderState3' + suffix).style.display = 'flex';
+
+// Set the audio source
+const audioEl = document.getElementById('recordedAudio' + suffix);
+if(audioEl && audioUrl) {
+audioEl.src = audioUrl;
+}
 }
 
 async function startRecording() {
@@ -1245,24 +1265,19 @@ const mimeType = MediaRecorder.isTypeSupported('audio/mp4') ? 'audio/mp4' : 'aud
 const audioBlob = new Blob(audioChunks, { type: mimeType });
 currentAudioBlob = audioBlob;
 const audioUrl = URL.createObjectURL(audioBlob);
-document.getElementById('recordedAudio').src = audioUrl;
-document.getElementById('audioPlayback').style.display = 'block';
-document.getElementById('recorderBox').classList.add('has-recording');
+
+// Show State 3 (Playback) with the recorded audio
+showPlaybackState(3, audioUrl);
 
 // Store blob temporarily - upload happens when clicking "Next"
-// Create a local URL for playback only
 stream.getTracks().forEach(track => track.stop());
 };
 
 mediaRecorder.start();
 recordingStartTime = Date.now();
 
-// Update UI
-document.getElementById('recordBtn').style.display = 'none';
-document.getElementById('stopBtn').style.display = 'inline-flex';
-document.getElementById('recordingTimer').style.display = 'block';
-document.getElementById('recorderStatus').classList.add('recording');
-document.querySelector('.audio-recorder-box').classList.add('recording');
+// Show State 2 (Recording)
+showRecordingStates(3);
 
 // Start timer
 recordingTimerInterval = setInterval(updateRecordingTimer, 1000);
@@ -1277,21 +1292,17 @@ function stopRecording() {
 if(mediaRecorder && mediaRecorder.state !== 'inactive') {
 mediaRecorder.stop();
 clearInterval(recordingTimerInterval);
-document.getElementById('stopBtn').style.display = 'none';
-document.getElementById('recorderStatus').classList.remove('recording');
-document.querySelector('.audio-recorder-box').classList.remove('recording');
 }
 }
 
 function resetRecording() {
 resetRecordingUI();
 writingAnswers[currentWritingTask] = '';
+currentAudioBlob = null;
 }
 
 // Step 4 Audio Recording Functions (for second audio question)
 async function startRecording4() {
-// Use same logic as startRecording but with step 4 elements
-const step4 = true;
 try {
 const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
 mediaRecorder = new MediaRecorder(stream);
@@ -1307,9 +1318,9 @@ const mimeType = MediaRecorder.isTypeSupported('audio/mp4') ? 'audio/mp4' : 'aud
 const audioBlob = new Blob(audioChunks, { type: mimeType });
 currentAudioBlob = audioBlob;
 const audioUrl = URL.createObjectURL(audioBlob);
-document.getElementById('recordedAudio4').src = audioUrl;
-document.getElementById('audioPlayback4').style.display = 'block';
-document.getElementById('recorderBox4').classList.add('has-recording');
+
+// Show State 3 (Playback) with the recorded audio
+showPlaybackState(4, audioUrl);
 
 stream.getTracks().forEach(track => track.stop());
 };
@@ -1317,12 +1328,8 @@ stream.getTracks().forEach(track => track.stop());
 mediaRecorder.start();
 recordingStartTime = Date.now();
 
-// Update UI for step 4
-document.getElementById('recordBtn4').style.display = 'none';
-document.getElementById('stopBtn4').style.display = 'inline-flex';
-document.getElementById('recordingTimer4').style.display = 'block';
-document.getElementById('recorderStatus4').classList.add('recording');
-document.getElementById('recorderBox4').classList.add('recording');
+// Show State 2 (Recording)
+showRecordingStates(4);
 
 // Start timer for step 4
 recordingTimerInterval = setInterval(() => {
@@ -1343,33 +1350,13 @@ function stopRecording4() {
 if(mediaRecorder && mediaRecorder.state !== 'inactive') {
 mediaRecorder.stop();
 clearInterval(recordingTimerInterval);
-document.getElementById('stopBtn4').style.display = 'none';
-document.getElementById('recorderStatus4').classList.remove('recording');
-document.getElementById('recorderBox4').classList.remove('recording');
 }
 }
 
 function resetRecording4() {
-// Reset for step 4
-currentAudioBlob = null;
-if(mediaRecorder && mediaRecorder.state !== 'inactive') {
-mediaRecorder.stop();
-}
-mediaRecorder = null;
-audioChunks = [];
-clearInterval(recordingTimerInterval);
-
-document.getElementById('recordBtn4').style.display = 'inline-flex';
-document.getElementById('stopBtn4').style.display = 'none';
-document.getElementById('recordingTimer4').style.display = 'none';
-document.getElementById('audioPlayback4').style.display = 'none';
-document.getElementById('uploadStatus4').style.display = 'none';
-document.getElementById('uploadSuccess4').style.display = 'none';
-document.getElementById('uploadError4').style.display = 'none';
-document.getElementById('recorderStatus4').classList.remove('recording');
-document.getElementById('recorderBox4').classList.remove('recording', 'has-recording');
-
+resetRecordingUI4();
 writingAnswers[currentWritingTask] = '';
+currentAudioBlob = null;
 }
 
 function updateRecordingTimer() {
