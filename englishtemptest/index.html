@@ -192,6 +192,7 @@ audio::-webkit-media-controls-panel{display:flex!important}
 audio:invalid,audio::-webkit-media-controls-enclosure{opacity:1!important}
 audio::-webkit-media-controls-error{display:none!important}
 audio[src=""],audio:not([src]){display:none!important}
+.audio-playback-wrapper audio{display:block!important}
 @keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.1)}100%{transform:scale(1)}}
 .recorder-status p{color:var(--gray);font-size:0.95rem;margin:0}
 .recorder-controls{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
@@ -234,7 +235,7 @@ audio::before,audio::after{content:none!important}
 .state-recording .btn-stop-big:hover{background:#c82333;transform:translateY(-2px);box-shadow:0 8px 25px rgba(220,53,69,0.3)}
 
 /* State 3: Playback - Success + Audio + Re-record */
-.state-playback{width:100%;max-width:480px}
+.state-playback{width:100%;max-width:480px;align-items:center}
 .state-playback .audio-success{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:20px;color:#28a745;font-size:1rem;font-weight:500}
 .state-playback .audio-success i{font-size:20px}
 .state-playback .audio-playback-wrapper{background:var(--bg);padding:16px 20px;border-radius:var(--border-radius);border:2px solid #e5e5e5;margin-bottom:20px}
