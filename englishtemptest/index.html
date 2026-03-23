@@ -198,6 +198,11 @@ body{font-family:var(--font-body);background:var(--bg);color:var(--gray-dark);li
 .recording-timer{color:var(--red);font-weight:600;font-size:1.1rem;margin-top:16px}
 .audio-playback audio{width:100%;max-width:400px}
 .upload-progress{color:var(--gray);font-size:0.9rem}
+/* Force hide error messages by default */
+.upload-error{display:none!important}
+/* Description hidden state for audio questions */
+.description-hidden{display:none}
+.description-hint{font-size:0.85rem;color:var(--gray-light);font-style:italic;margin-top:8px}
 </style>
 </head>
 <body>
@@ -1007,7 +1012,33 @@ const backBtnEl = document.getElementById(useStep4 ? 'writingBackBtn4' : 'writin
 const nextBtnEl = document.getElementById(useStep4 ? 'writingNextBtn4' : 'writingNextBtn');
 
 if(titleEl) titleEl.textContent = task.title;
-if(descEl) descEl.textContent = task.description;
+
+// For task 2 (first audio question), hide description initially, show on 2nd play
+const isFirstAudioQuestion = currentWritingTask === 2;
+if(descEl) {
+if(isFirstAudioQuestion && task.type === 'audio') {
+// Hide description initially for first audio question
+descEl.style.display = 'none';
+descEl.classList.add('description-hidden');
+// Add hint text
+if(!document.getElementById('descHint')) {
+const hint = document.createElement('p');
+hint.id = 'descHint';
+hint.className = 'description-hint';
+hint.textContent = 'Ouça a pergunta. A descrição aparecerá na 2ª reprodução.';
+descEl.parentNode.insertBefore(hint, descEl);
+}
+} else {
+// Show normally for other tasks
+descEl.textContent = task.description;
+descEl.style.display = 'block';
+descEl.classList.remove('description-hidden');
+// Remove hint if exists
+const hint = document.getElementById('descHint');
+if(hint) hint.remove();
+}
+}
+
 if(transEl) {
 transEl.textContent = task.translation;
 transEl.classList.remove('visible');
@@ -1045,6 +1076,34 @@ if(otherRecorder) otherRecorder.style.display = 'none';
 if(audioEl && audioContainerEl && task.audioUrl) {
 audioEl.src = task.audioUrl;
 audioContainerEl.style.display = 'block';
+
+// For first audio question (task 2), track plays and show description on 2nd play
+if(isFirstAudioQuestion) {
+// Reset play counter
+audioEl.dataset.playCount = '0';
+// Remove old listener if exists
+if(audioEl._playHandler) {
+audioEl.removeEventListener('play', audioEl._playHandler);
+}
+// Add play listener
+audioEl._playHandler = function() {
+let count = parseInt(audioEl.dataset.playCount || '0');
+count++;
+audioEl.dataset.playCount = count.toString();
+// Show description on 2nd play
+if(count === 2) {
+const desc = document.getElementById('writingDescription4');
+const hint = document.getElementById('descHint');
+if(desc) {
+desc.textContent = task.description;
+desc.style.display = 'block';
+desc.classList.remove('description-hidden');
+}
+if(hint) hint.remove();
+}
+};
+audioEl.addEventListener('play', audioEl._playHandler);
+}
 } else if(audioContainerEl) {
 audioContainerEl.style.display = 'none';
 }
