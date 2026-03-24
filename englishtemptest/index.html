@@ -960,6 +960,7 @@ let audioChunks = [];
 let recordingStartTime = null;
 let recordingTimerInterval = null;
 let currentAudioBlob = null;
+let audioUploadAttempts = 0;
 
 // Cloudinary config
 const CLOUDINARY_CONFIG = {
@@ -1039,7 +1040,7 @@ const savedUrl = writingAnswers[currentWritingTask];
 if(savedUrl && savedUrl.startsWith('http')) {
 if(useStep4) {
 document.getElementById('recordedAudio4').src = savedUrl;
-document.getElementById('audioPlayback4').style.display = 'block';
+document.getElementById('audioPlayback4').style.display = 'flex';
 document.getElementById('audioReady4').style.display = 'block';
 document.getElementById('audioRerecordMsg4').style.display = 'block';
 document.getElementById('recordBtn4').style.display = 'none';
@@ -1221,6 +1222,7 @@ stream.getTracks().forEach(track => track.stop());
 
 mediaRecorder.start();
 recordingStartTime = Date.now();
+audioUploadAttempts = 0;
 document.getElementById('timerDisplay').textContent = '00:00';
 
 // Update UI
@@ -1228,7 +1230,7 @@ document.getElementById('recordBtn').style.display = 'none';
 document.getElementById('stopBtn').style.display = 'inline-flex';
 document.getElementById('recordingTimer').style.display = 'block';
 document.getElementById('recorderStatus').style.display = 'none';
-document.querySelector('.audio-recorder-box').classList.add('recording');
+document.getElementById('recorderBox').classList.add('recording');
 document.getElementById('audioHint').style.display = 'none';
 
 // Start timer
@@ -1246,7 +1248,7 @@ mediaRecorder.stop();
 clearInterval(recordingTimerInterval);
 document.getElementById('stopBtn').style.display = 'none';
 document.getElementById('recorderStatus').classList.remove('recording');
-document.querySelector('.audio-recorder-box').classList.remove('recording');
+document.getElementById('recorderBox').classList.remove('recording');
 }
 }
 
@@ -1286,6 +1288,7 @@ stream.getTracks().forEach(track => track.stop());
 
 mediaRecorder.start();
 recordingStartTime = Date.now();
+audioUploadAttempts = 0;
 document.getElementById('timerDisplay4').textContent = '00:00';
 
 // Update UI for step 4
@@ -1299,9 +1302,14 @@ document.getElementById('audioHint4').style.display = 'none';
 // Start timer for step 4
 recordingTimerInterval = setInterval(() => {
 const elapsed = Math.floor((Date.now() - recordingStartTime) / 1000);
+if(elapsed >= 120) {
+stopRecording4();
+document.getElementById('timerDisplay4').textContent = '02:00';
+return;
+}
 const minutes = Math.floor(elapsed / 60);
 const seconds = elapsed % 60;
-document.getElementById('timerDisplay4').textContent = 
+document.getElementById('timerDisplay4').textContent =
 `${minutes.toString().padStart(2,'0')}:${seconds.toString().padStart(2,'0')}`;
 }, 1000);
 
@@ -1350,9 +1358,14 @@ writingAnswers[currentWritingTask] = '';
 
 function updateRecordingTimer() {
 const elapsed = Math.floor((Date.now() - recordingStartTime) / 1000);
+if(elapsed >= 120) {
+stopRecording();
+document.getElementById('timerDisplay').textContent = '02:00';
+return;
+}
 const minutes = Math.floor(elapsed / 60);
 const seconds = elapsed % 60;
-document.getElementById('timerDisplay').textContent = 
+document.getElementById('timerDisplay').textContent =
 `${minutes.toString().padStart(2,'0')}:${seconds.toString().padStart(2,'0')}`;
 }
 
@@ -1418,13 +1431,46 @@ if(task.type === 'audio') {
 if(currentAudioBlob && !writingAnswers[currentWritingTask]) {
 const uploadStatusEl = document.getElementById(useStep4 ? 'uploadStatus4' : 'uploadStatus');
 const uploadSuccessEl = document.getElementById(useStep4 ? 'uploadSuccess4' : 'uploadSuccess');
+const uploadErrorEl = document.getElementById(useStep4 ? 'uploadError4' : 'uploadError');
+const uploadErrorTextEl = document.getElementById(useStep4 ? 'uploadErrorText4' : 'uploadErrorText');
+const nextBtnEl = document.getElementById(useStep4 ? 'writingNextBtn4' : 'writingNextBtn');
+
+// Show loading state on Next button
+const originalBtnHtml = nextBtnEl ? nextBtnEl.innerHTML : '';
+if(nextBtnEl) {
+nextBtnEl.disabled = true;
+nextBtnEl.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
+}
 if(uploadStatusEl) uploadStatusEl.style.display = 'block';
+
 const success = await uploadToCloudinary(currentAudioBlob);
-if(success && uploadSuccessEl) {
-uploadSuccessEl.style.display = 'block';
+
+// Restore Next button
+if(nextBtnEl) {
+nextBtnEl.disabled = false;
+nextBtnEl.innerHTML = originalBtnHtml;
+}
+
+if(success) {
+if(uploadSuccessEl) uploadSuccessEl.style.display = 'block';
+} else {
+audioUploadAttempts++;
+if(audioUploadAttempts < 3) {
+// Block advance — ask user to re-record
+if(uploadErrorEl && uploadErrorTextEl) {
+uploadErrorTextEl.textContent = audioUploadAttempts === 1
+? 'Falha no envio do áudio. Por favor, grave novamente e tente uma vez mais.'
+: 'Falha novamente. Esta é sua última tentativa antes de prosseguirmos.';
+uploadErrorEl.style.display = 'block';
+uploadErrorEl.classList.add('show');
+}
+return; // Do NOT advance
+}
+// 3rd failure — take the loss and proceed
+writingAnswers[currentWritingTask] = '';
 }
 }
-// If no recording, save empty
+// If no recording at all, save empty
 if(!writingAnswers[currentWritingTask]) {
 writingAnswers[currentWritingTask] = '';
 }
