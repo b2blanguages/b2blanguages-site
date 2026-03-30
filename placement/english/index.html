@@ -1394,7 +1394,8 @@ errorEl.classList.remove('show');
 
 try {
 const formData = new FormData();
-formData.append('file', audioBlob, 'recording.webm');
+const ext = audioBlob.type === 'audio/mp4' ? 'mp4' : 'webm';
+formData.append('file', audioBlob, `recording.${ext}`);
 formData.append('upload_preset', CLOUDINARY_CONFIG.uploadPreset);
 
 const response = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CONFIG.cloudName}/upload`, {
